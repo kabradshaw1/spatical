@@ -1,23 +1,21 @@
 import geopandas as gpd
+import pandas as pd
 from matplotlib import pyplot as plt
-import os
 
-# Define the paths to the data files
+# Define the paths to your data files
 parcels_file_path = 'Data/Beaufort_County_Parcels/parcels.shp'
 addresses_file_path = 'Data/Beaufort_Count_Streets/addresses.shp'
-
-# Verify that the files exist
-if not os.path.exists(parcels_file_path):
-    raise FileNotFoundError(f"The file at path '{parcels_file_path}' does not exist.")
-if not os.path.exists(addresses_file_path):
-    raise FileNotFoundError(f"The file at path '{addresses_file_path}' does not exist.")
 
 # Read the shapefiles
 parcels = gpd.read_file(parcels_file_path)
 addresses = gpd.read_file(addresses_file_path)
 
+# Convert columns to numeric values (handling errors)
+parcels['ACRES'] = pd.to_numeric(parcels['ACRES'], errors='coerce')
+parcels['CalcAcres'] = pd.to_numeric(parcels['CalcAcres'], errors='coerce')
+
 # Calculate Acre_Diff
-parcels['Acre_Diff'] = parcels['Acre_5070'] - parcels['CalcAcres']
+parcels['Acre_Diff'] = parcels['ACRES'] - parcels['CalcAcres']
 
 # Filter parcels based on Acre_Diff
 filtered_parcels = parcels[(parcels['Acre_Diff'] > 3.0) & (parcels['Acre_Diff'] < 4.0)]
