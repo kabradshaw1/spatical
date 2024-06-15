@@ -1,17 +1,26 @@
 import geopandas as gpd
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+import os
 
-# Load the parcels GeoDataFrame (assuming the file is named 'beaufort_parcels.geojson')
-parcels = gpd.read_file('path/to/beaufort_parcels.geojson')
+# Define the paths to the data files
+parcels_file_path = 'Data/Beaufort_County_Parcels/parcels.shp'
+addresses_file_path = 'Data/Beaufort_Count_Streets/addresses.shp'
+
+# Verify that the files exist
+if not os.path.exists(parcels_file_path):
+    raise FileNotFoundError(f"The file at path '{parcels_file_path}' does not exist.")
+if not os.path.exists(addresses_file_path):
+    raise FileNotFoundError(f"The file at path '{addresses_file_path}' does not exist.")
+
+# Read the shapefiles
+parcels = gpd.read_file(parcels_file_path)
+addresses = gpd.read_file(addresses_file_path)
 
 # Calculate Acre_Diff
 parcels['Acre_Diff'] = parcels['Acre_5070'] - parcels['CalcAcres']
 
 # Filter parcels based on Acre_Diff
 filtered_parcels = parcels[(parcels['Acre_Diff'] > 3.0) & (parcels['Acre_Diff'] < 4.0)]
-
-# Load the addresses GeoDataFrame (assuming the file is named 'beaufort_addresses.geojson')
-addresses = gpd.read_file('path/to/beaufort_addresses.geojson')
 
 # Perform a spatial join to find addresses within the identified parcels
 addresses_within_parcels = gpd.sjoin(addresses, filtered_parcels, how='inner', op='within')
