@@ -1,0 +1,14 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "name": "SUSHI GO", "address": "247 N Main St, Greenville, SC 29601", "lat": 34.85393434, "lon": -82.39780696 }, "geometry": { "type": "Point", "coordinates": [ -82.39780696, 34.85393434 ] } },
+{ "type": "Feature", "properties": { "name": "Menkoi Noodle House", "address": "241B N Main St, Greenville, SC 29601", "lat": 34.85380825, "lon": -82.39809946 }, "geometry": { "type": "Point", "coordinates": [ -82.39809946, 34.85380825 ] } },
+{ "type": "Feature", "properties": { "name": "Roost Restaurant", "address": "220 N Main St, Greenville, SC 29601", "lat": 34.85316697, "lon": -82.39691239 }, "geometry": { "type": "Point", "coordinates": [ -82.39691239, 34.85316697 ] } },
+{ "type": "Feature", "properties": { "name": "The Lost Cajun", "address": "116 N Main St, Greenville, SC 29601", "lat": 34.85216246, "lon": -82.39812909 }, "geometry": { "type": "Point", "coordinates": [ -82.39812909, 34.85216246 ] } },
+{ "type": "Feature", "properties": { "name": "Ristorante Bergamo", "address": "100 N Main St, Greenville, SC 29601", "lat": 34.85170503, "lon": -82.39838776000001 }, "geometry": { "type": "Point", "coordinates": [ -82.39838776, 34.85170503 ] } },
+{ "type": "Feature", "properties": { "name": "Trio - A Brick Oven Café", "address": "22 N Main St, Greenville, SC 29601", "lat": 34.85133498, "lon": -82.398299 }, "geometry": { "type": "Point", "coordinates": [ -82.398299, 34.85133498 ] } },
+{ "type": "Feature", "properties": { "name": "Sticky Fingers Rib House", "address": "1 S Main St, Greenville, SC 29601", "lat": 34.85057309, "lon": -82.3988681 }, "geometry": { "type": "Point", "coordinates": [ -82.3988681, 34.85057309 ] } },
+{ "type": "Feature", "properties": { "name": "Takosushi", "address": "34 S Main St, Greenville, SC 29601", "lat": 34.84988848, "lon": -82.39970967 }, "geometry": { "type": "Point", "coordinates": [ -82.39970967, 34.84988848 ] } }
+]
+}
