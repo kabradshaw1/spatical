@@ -13,5 +13,53 @@
                 <coordinates>-77.41839575065697,35.518757954644265,0.0</coordinates>
             </Point>
         </Placemark>
+        <Placemark id="7">
+            <name>LAWRENCE EDWARD BABITS</name>
+            <Point id="6">
+                <coordinates>-77.394288,35.568165,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="9">
+            <name>NANCY MAYER BABITS</name>
+            <Point id="8">
+                <coordinates>-77.394288,35.568165,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="11">
+            <name>LAURA DANIELLE BABSON</name>
+            <Point id="10">
+                <coordinates>-77.41848044069928,35.590722544949315,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="13">
+            <name>VICTORIA MARIE BABSON</name>
+            <Point id="12">
+                <coordinates>-77.4380569583752,35.58270255173104,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="15">
+            <name>CLARISA nan BACILIO</name>
+            <Point id="14">
+                <coordinates>-77.38436551353384,35.58521096186423,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="17">
+            <name>KRISTIAN HALL BACKMAN</name>
+            <Point id="16">
+                <coordinates>-77.38997156986284,35.532129913862285,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="19">
+            <name>REGINA STOKES BACKUS</name>
+            <Point id="18">
+                <coordinates>-77.38025843006525,35.56357666157552,0.0</coordinates>
+            </Point>
+        </Placemark>
+        <Placemark id="21">
+            <name>ROBERT EARL BACKUS</name>
+            <Point id="20">
+                <coordinates>-77.38025843006525,35.56357666157552,0.0</coordinates>
+            </Point>
+        </Placemark>
     </Document>
 </kml>

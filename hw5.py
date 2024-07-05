@@ -4,43 +4,51 @@ from geopy.extra.rate_limiter import RateLimiter
 import simplekml
 
 # Load the CSV file
-file_path = 'active_verified_pitt.csv'
+file_path = './active_verified_pitt.csv'
 df = pd.read_csv(file_path)
 
-# Filter voters whose last name starts with 'B'
+# Filter voters with last names starting with 'B'
 filtered_df = df[df['last_name'].str.startswith('B')]
 
-# Select the first 10 filtered addresses
-sample_df = filtered_df.head(10).copy()
-
-# Initialize geolocator
+# Initialize the geocoder
 geolocator = Nominatim(user_agent="voter_geocoder")
-geocode = RateLimiter(geolocator.geocode, min_delay_seconds=1)
+# Adjust the rate limiter settings
+geocode = RateLimiter(geolocator.geocode, min_delay_seconds=2, max_retries=3, error_wait_seconds=5)
 
-# Geocode the addresses
-sample_df['full_address'] = sample_df['res_street_address'] + ', ' + sample_df['res_city_desc'] + ', ' + sample_df['state_cd'] + ' ' + sample_df['zip_code'].astype(str)
-sample_df['location'] = sample_df['full_address'].apply(geocode)
+# Function to geocode an address
+def geocode_address(row):
+    address = f"{row['res_street_address']}, {row['res_city_desc']}, {row['state_cd']} {int(row['zip_code'])}"
+    try:
+        location = geocode(address, timeout=10)  # Increase timeout duration
+        if location:
+            return location.latitude, location.longitude
+        else:
+            return None, None
+    except Exception as e:
+        print(f"Error geocoding address {address}: {e}")
+        return None, None
 
-# Debugging: Print geocoded locations
-print(sample_df[['full_address', 'location']])
+# Collect geocoded addresses until we have 10 valid locations
+valid_locations = []
+for _, row in filtered_df.iterrows():
+    if len(valid_locations) >= 10:
+        break
+    latitude, longitude = geocode_address(row)
+    if latitude is not None and longitude is not None:
+        valid_locations.append({**row, 'latitude': latitude, 'longitude': longitude})
 
-# Extract latitude and longitude
-sample_df['latitude'] = sample_df['location'].apply(lambda loc: loc.latitude if loc else None)
-sample_df['longitude'] = sample_df['location'].apply(lambda loc: loc.longitude if loc else None)
-
-# Debugging: Print rows with successful geocoding
-print(sample_df[['full_address', 'latitude', 'longitude']])
+# Convert valid locations to DataFrame
+sample_voters = pd.DataFrame(valid_locations)
 
 # Initialize KML
 kml = simplekml.Kml()
 
-# Create KML points for each voter
-for index, row in sample_df.iterrows():
-    if pd.notnull(row['latitude']) and pd.notnull(row['longitude']):
-        kml.newpoint(name=f"{row['first_name']} {row['middle_name']} {row['last_name']}", 
-                     coords=[(row['longitude'], row['latitude'])])
+# Add points to KML
+for _, row in sample_voters.iterrows():
+    name = f"{row['first_name']} {row['middle_name']} {row['last_name']}".strip()
+    kml.newpoint(name=name, coords=[(row['longitude'], row['latitude'])])
 
-# Save KML file
-kml.save("voters.kml")
+# Save the KML file
+kml.save("voter_locations.kml")
 
-print("KML file generated successfully.")
+print("Geocoding and KML generation complete.")
